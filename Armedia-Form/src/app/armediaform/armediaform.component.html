@@ -1,25 +1,43 @@
-<p>
-  armediaform works!
-  
-</p>
-<form [formGroup]="form" (ngSubmit)="onSubmit(myForm)">
-  <div>
-    <label>
-      Name:
-      <input formControlName="name" placeholder="Your name">
-    </label>
-  </div>
+<h1>Armedia Forms Assessment</h1>
+<div>
+<form [formGroup]="form" (ngSubmit)="onSubmit(form)">
   <div>
     <label>
       Email:
-      <input formControlName="email" placeholder="Your email">
+      <input formControlName="email" placeholder="Enter email">
     </label>
+    <div *ngIf="form.get('email').invalid && (form.get('email').dirty || form.get('email').touched)" style="color:red">
+      Please provide a valid email address.
+    </div>
   </div>
   <div>
     <label>
-      Message:
-      <input formControlName="message" placeholder="Your message">
+      Password:
+      <input formControlName="password" type="password" placeholder="Enter password">
     </label>
+    <div *ngIf="form.get('password').invalid && (form.get('password').dirty || form.get('password').touched)" style="color:red">
+      Please enter Password.Must be 8 digits which contains atleast one character and one special character.
+    </div>
   </div>
-  <button type="submit">Send</button>
+  <div>
+    <label>
+      Retype password:
+      <input formControlName="retypePassword" type="password" placeholder="Retype Password">
+    </label>
+    <div *ngIf="form.get('password').invalid && (form.get('password').dirty || form.get('password').touched)" style="color:red">
+      Please enter Password.Must be 8 digits which contains atleast one character and one special character.
+    </div>
+  </div>
+  <div>
+     <label>Subscrition:</label> 
+      <select formControlName="subscription" >
+        <option *ngFor="let s of subscriptionValues">
+          {{s}}
+        </option>
+      </select>
+  </div>
+  <button type="submit" [disabled]= "!form.valid">Submit</button> 
+  <button type="reset" (Click)="clearForm()">Clear</button>
 </form>
+</div>
+<!-- [disabled]= "!form.valid" -->
