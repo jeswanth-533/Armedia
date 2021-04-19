@@ -25,7 +25,7 @@
       <input formControlName="password" type="password" placeholder="Enter password">
     </label>
     <div *ngIf="form.get('password').invalid && (form.get('password').dirty || form.get('password').touched)" style="color:red">
-      Please enter Password.Must be 8 charcaters which contains atleast one character and one special character.
+      Please enter Password.Must be 8 charcaters which contains atleast one character and one special character(@#$%^&+=).
     </div>
   </div>
   <br/>
@@ -49,6 +49,7 @@
   <br/>
   <button type="submit" >Submit</button> 
   <button type="reset" (click)="clearForm()">Clear</button>
+  <button type="button" >Download</button> 
 </form>
 </div>
 <!-- [disabled]= "!form.valid" -->

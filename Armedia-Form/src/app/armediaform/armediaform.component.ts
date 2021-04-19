@@ -43,7 +43,7 @@ export class ArmediaformComponent implements OnInit {
           [
             Validators.required,
             Validators.pattern(
-              "^(?=.{8,})(?=.*[a-z])(?=.*[0-9])(?=.*[@#$%^&+=]).*$"
+              "^(?=.{8,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[@#$%^&+=]).*$"
             ),
             Validators.maxLength(8),
           ],
@@ -86,7 +86,7 @@ export class ArmediaformComponent implements OnInit {
           ) {
             this.Messages.push(
               key +
-                " field must be 8 charcaters and contain atleast one character and one special character "
+                " field must be 8 charcaters and contain atleast one character and one special character(@#$%^&+=)"
             );
           }
           if (myForm.controls[key].errors.compareValidator) {
