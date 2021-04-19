@@ -19,7 +19,7 @@ export interface FormData {
 })
 export class ArmediaformComponent implements OnInit {
   form: FormGroup;
-  subscriptionValues: any = ["Basic", "Advanced", "Pro"];
+  subscriptionValues: any = ["Advanced","Basic", "Pro"];
   defaultValue: string = "Advanced";
   validationErrorMessages = [];
   ComparisonMessage: string = "Password and Retype Password must be same";
