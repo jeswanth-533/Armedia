@@ -1,3 +1,4 @@
+import { analyzeAndValidateNgModules } from "@angular/compiler";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { CheckMatch } from "./check-match";
@@ -26,6 +27,7 @@ export class ArmediaformComponent implements OnInit {
   formData: FormData[] = [];
   currentDate: Date;
   Messages: string[] = [];
+  downloadForm:any[] = [];
   constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
@@ -69,7 +71,9 @@ export class ArmediaformComponent implements OnInit {
       };
       this.currentDate = new Date();
       this.formData.push(data);
-      this.downloadFile(myForm.value, this.currentDate);
+      myForm.value.subscriptionDate = this.currentDate .toLocaleDateString();
+      this.downloadForm.push(myForm.value);
+      this.downloadFile(this.downloadForm, this.currentDate);
     } else if ((myForm.invalid && myForm.touched) || myForm.untouched) {
       Object.keys(myForm.controls).forEach((key) => {
         if (myForm.controls[key].errors) {
