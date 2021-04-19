@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { ArmediaformComponent } from './armediaform/armediaform.component';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { BotDetectCaptchaModule } from 'angular-captcha';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { FormsModule, ReactiveFormsModule} from '@angular/forms';
   imports: [
     BrowserModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BotDetectCaptchaModule
   ],
   providers: [],
   bootstrap: [AppComponent]

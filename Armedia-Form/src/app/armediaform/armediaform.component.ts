@@ -1,5 +1,15 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { CheckMatch } from "./check-match";
+
+export interface FormData {
+  emailAddress: string;
+  subscriptionType: string;
+}
+
+// export interface WarningMessages {
+//   warningMessage:string;
+// }
 
 @Component({
   selector: "app-armediaform",
@@ -9,46 +19,88 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 export class ArmediaformComponent implements OnInit {
   form: FormGroup;
   subscriptionValues: any = ["Basic", "Advanced", "Pro"];
-  defaultValue:string = "Advanced";
+  defaultValue: string = "Advanced";
   validationErrorMessages = [];
-  ComparisonMessage:string = "Password and Retype Password must be same";
+  ComparisonMessage: string = "Password and Retype Password must be same";
+  check: boolean;
+  formData: FormData[] = [];
+  currentDate: Date;
+  Messages: string[] = [];
   constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
-   this.initializeForm();
+    this.initializeForm();
   }
 
-  initializeForm(){
-    this.form = this.fb.group({
-      email: ["", [Validators.required, Validators.email]],
-      password: [
-        "",
-        [
-          Validators.required,
-          Validators.pattern("^(?=.{8,})(?=.*[a-z])(?=.*[0-9])(?=.*[@#$%^&+=]).*$"),
-          Validators.maxLength(8),
+  initializeForm() {
+    this.form = this.fb.group(
+      {
+        email: ["", [Validators.required, Validators.email]],
+        password: [
+          "",
+          [
+            Validators.required,
+            Validators.pattern(
+              "^(?=.{8,})(?=.*[a-z])(?=.*[0-9])(?=.*[@#$%^&+=]).*$"
+            ),
+            Validators.maxLength(8),
+          ],
         ],
-      ],
-      retypePassword: ["", [Validators.required,this.compareInput]],
-      subscription: ["Advanced"],
-    });
+        retypePassword: ["", [Validators.required]],
+        subscription: ["Advanced"],
+      },
+      {
+        validator: CheckMatch("password", "retypePassword"),
+      }
+    );
   }
   clearForm() {
-    this.form.reset();
+    if (confirm("Are you sure to clear the form")) {
+      this.form.reset();
+    }
   }
 
-  compareInput(){
-console.log("compare");
+  onSubmit(myForm: FormGroup) {
+    this.Messages = [];
+    if (myForm.valid) {
+      var data = {
+        emailAddress: myForm.controls["email"].value,
+        subscriptionType: myForm.controls["subscription"].value,
+      };
+      this.currentDate = new Date();
+      this.formData.push(data);
+      this.downloadFile(myForm.value, this.currentDate);
+    } else if ((myForm.invalid && myForm.touched) || myForm.untouched) {
+      Object.keys(myForm.controls).forEach((key) => {
+        if (myForm.controls[key].errors) {
+          if (myForm.controls[key].errors.required) {
+            this.Messages.push(key + " field is required.Please enter value");
+          }
+          if (
+            myForm.controls[key].errors.maxlength ||
+            myForm.controls[key].errors.pattern
+          ) {
+            this.Messages.push(
+              key +
+                " field must be 8 charcaters and contain atleast one character and one special character "
+            );
+          }
+          if (myForm.controls[key].errors.compareValidator) {
+            this.Messages.push("Password and Retype Password should be same");
+          }
+        }
+      });
+    }
   }
 
-  onSubmit(myForm:FormGroup){
-    if(myForm.controls['password'].value !== myForm.controls['retypePassword'].value){
-      this.validationErrorMessages.push(this.ComparisonMessage);
-      console.log(this.validationErrorMessages);
-    }
-    if(myForm.valid){
-      console.log("valid form")
-    }
-console.log(myForm);
+  downloadFile(updatedForm: any, jsondate: Date) {
+    updatedForm.subscriptionDate = jsondate.toLocaleDateString();
+    var theJSON = JSON.stringify(updatedForm);
+    var uri =
+      "data:application/json;charset=UTF-8," + encodeURIComponent(theJSON);
+    var a = document.createElement("a");
+    a.href = uri;
+    a.download = "Armedia";
+    a.click();
   }
 }

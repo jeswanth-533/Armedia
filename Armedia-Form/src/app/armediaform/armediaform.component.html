@@ -1,4 +1,12 @@
 <h1>Armedia Forms Assessment</h1>
+<br/>
+<div *ngFor="let m of Messages" style="color:red">
+ <ul>
+   <li>
+    {{m}}
+   </li>
+ </ul> 
+</div>
 <div>
 <form [formGroup]="form" (ngSubmit)="onSubmit(form)">
   <div>
@@ -10,24 +18,25 @@
       Please provide a valid email address.
     </div>
   </div>
+  <br/>
   <div>
     <label>
       Password:
       <input formControlName="password" type="password" placeholder="Enter password">
     </label>
     <div *ngIf="form.get('password').invalid && (form.get('password').dirty || form.get('password').touched)" style="color:red">
-      Please enter Password.Must be 8 digits which contains atleast one character and one special character.
+      Please enter Password.Must be 8 charcaters which contains atleast one character and one special character.
     </div>
   </div>
+  <br/>
   <div>
     <label>
       Retype password:
       <input formControlName="retypePassword" type="password" placeholder="Retype Password">
     </label>
-    <div *ngIf="form.get('password').invalid && (form.get('password').dirty || form.get('password').touched)" style="color:red">
-      Please enter Password.Must be 8 digits which contains atleast one character and one special character.
-    </div>
+    <div *ngIf="form.get('retypePassword').errors" style="color:red">Password and Confirm Password must be match.</div>
   </div>
+  <br/>
   <div>
      <label>Subscrition:</label> 
       <select formControlName="subscription" >
@@ -36,8 +45,22 @@
         </option>
       </select>
   </div>
-  <button type="submit" [disabled]= "!form.valid">Submit</button> 
-  <button type="reset" (Click)="clearForm()">Clear</button>
+  <br/>
+  <button type="submit" >Submit</button> 
+  <button type="reset" (click)="clearForm()">Clear</button>
 </form>
 </div>
 <!-- [disabled]= "!form.valid" -->
+<br/>
+  <table >
+    <tr >
+      <th>Email Adress</th>
+      <th>Subscription Type</th>
+      <th>Start/Created Date</th>
+    </tr>
+    <tr *ngFor = "let record of formData" >
+      <td>{{record.emailAddress}}</td>
+      <td>{{record.subscriptionType}}</td>
+      <td>{{ currentDate | date:'yyyy-MM-dd'}}</td>
+    </tr>
+  </table>
