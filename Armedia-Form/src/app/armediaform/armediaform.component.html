@@ -1,4 +1,4 @@
-<h1>Armedia Forms Assessment</h1>
+<h1 style="color:Tomato;">Armedia Forms Assessment</h1>
 <br/>
 <div *ngFor="let m of Messages" style="color:red">
  <ul>
@@ -37,6 +37,7 @@
     <div *ngIf="form.get('retypePassword').errors" style="color:red">Password and Confirm Password must be match.</div>
   </div>
   <br/>
+
   <div>
      <label>Subscrition:</label> 
       <select formControlName="subscription" >
