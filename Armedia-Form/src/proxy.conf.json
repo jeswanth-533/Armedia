@@ -1,7 +1,0 @@
-{
-    "/*": {
-        "target": "https://www.google.com/recaptcha/api/siteverify",
-        "secure": false,
-        "logLevel": "debug"
-    }
-}
