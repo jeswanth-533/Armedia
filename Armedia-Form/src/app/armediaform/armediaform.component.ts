@@ -113,7 +113,7 @@ export class ArmediaformComponent implements OnInit {
   }
 
   handleSuccess(token){
-    console.log(token);
+    // console.log(token);
     this.httpClient.post(this.url,{token:token}).subscribe(response => {
       console.log(response);
     })
