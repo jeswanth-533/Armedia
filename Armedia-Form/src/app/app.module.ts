@@ -3,7 +3,9 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { ArmediaformComponent } from './armediaform/armediaform.component';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { BotDetectCaptchaModule } from 'angular-captcha';
+// import { BotDetectCaptchaModule } from 'angular-captcha';
+import { NgxCaptchaModule } from 'ngx-captcha';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -15,7 +17,9 @@ import { BotDetectCaptchaModule } from 'angular-captcha';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    BotDetectCaptchaModule
+   // BotDetectCaptchaModule,
+    NgxCaptchaModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

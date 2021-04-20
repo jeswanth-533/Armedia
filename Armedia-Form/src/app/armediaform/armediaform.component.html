@@ -47,9 +47,15 @@
       </select>
   </div>
   <br/>
+  <ngx-recaptcha2 #captchaElem
+    [siteKey]="siteKey"
+    (success)="handleSuccess($event)"
+    formControlName="recaptcha">
+  </ngx-recaptcha2>
+  <br/>
   <button type="submit" >Submit</button> 
   <button type="reset" (click)="clearForm()">Clear</button>
-  <button type="button" >Download</button> 
+  <!-- <button type="button" >Download</button>  -->
 </form>
 </div>
 <!-- [disabled]= "!form.valid" -->

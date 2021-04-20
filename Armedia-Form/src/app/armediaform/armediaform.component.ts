@@ -1,7 +1,8 @@
 import { analyzeAndValidateNgModules } from "@angular/compiler";
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from "@angular/forms";
 import { CheckMatch } from "./check-match";
+import { HttpClient } from '@angular/common/http';
 
 export interface FormData {
   emailAddress: string;
@@ -28,7 +29,9 @@ export class ArmediaformComponent implements OnInit {
   currentDate: Date;
   Messages: string[] = [];
   downloadForm:any[] = [];
-  constructor(private fb: FormBuilder) {}
+  siteKey:string ="6LcEvLEaAAAAAA1nTVjfVeIYEiXzcX-Uw3vfYRQg";
+  url ="https://www.google.com/recaptcha/api/siteverify";
+  constructor(private fb: FormBuilder,private httpClient:HttpClient) {}
 
   ngOnInit() {
     this.initializeForm();
@@ -50,6 +53,7 @@ export class ArmediaformComponent implements OnInit {
         ],
         retypePassword: ["", [Validators.required]],
         subscription: ["Advanced"],
+        recaptcha: ['', Validators.required]
       },
       {
         validator: CheckMatch("password", "retypePassword"),
@@ -106,5 +110,12 @@ export class ArmediaformComponent implements OnInit {
     a.href = uri;
     a.download = "Armedia";
     a.click();
+  }
+
+  handleSuccess(token){
+    console.log(token);
+    this.httpClient.post(this.url,{token:token}).subscribe(response => {
+      console.log(response);
+    })
   }
 }
