@@ -14,6 +14,23 @@ describe("ArmediaformComponent", () => {
   let component: ArmediaformComponent;
   let fixture: ComponentFixture<ArmediaformComponent>;
   let formBuilder: FormBuilder;
+  var sampleData = 
+    {
+      email: "abc@gmail.com",
+      password: "Abcdef%4",
+      recaptcha: "03AGdBq27ICVnYhvCd2U3T44BMiyKvyevajlAUqrMExx0tMf",
+      retypePassword: "Abcdef%4",
+      subscription: "Advanced",
+      subscriptionDate: "4/21/2021",
+    };
+    // {
+    //   email: "testcase@gmail.com",
+    //   password: "Abcd45$5",
+    //   recaptcha: "hsafhsbhsbfdsbfadsblfjdsbfdsb",
+    //   retypePassword: "Abcd45$5",
+    //   subscription: "Advanced",
+    //   subscriptionDate: "4/21/2021",
+    // });
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -122,5 +139,35 @@ describe("ArmediaformComponent", () => {
       .query(By.css("button[type=submit]"))
       .triggerEventHandler("click", null);
     expect(btnClicked).toHaveBeenCalledTimes(0);
+    // expect(data).toHaveBeenCalledWith(sampleData,new Date());
+  });
+
+  describe("download file to local", () => {
+var data;
+    beforeEach(async(() => {
+       data = spyOn(component, "downloadFile");
+    }));
+
+    it(" if form is invalid", () => {
+      
+      expect(component.form.valid).toBeFalsy();
+      expect(data).not.toHaveBeenCalled();
+    });
+
+    it("if form is valid", () => {
+      let email = component.form.controls["email"].setValue("test@gmail.com");
+      let password = component.form.controls["password"].setValue("Abcdef%4");
+      let retypePassword = component.form.controls["retypePassword"].setValue(
+        "Abcdef%4"
+      );
+      let subscription = component.form.controls["subscription"].setValue(
+        "Pro"
+      );
+      let recaptcha = component.form.controls["recaptcha"].setValue(
+        "jsdfbsdhfbdshfdbsfdbfsbf"
+      );
+      let sdate = new Date();
+      expect(component.form.valid).toBeTruthy();
+    });
   });
 });
