@@ -8,7 +8,8 @@
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "cypress": "cypress open" 
   },
   "private": true,
   "dependencies": {
@@ -24,12 +25,13 @@
     "angular-captcha": "^3.7.4",
     "bootstrap": "^4.6.0",
     "core-js": "^2.4.1",
+    "cypress": "^7.1.0",
     "font-awesome": "^4.7.0",
     "ngx-captcha": "^5.0.4",
     "rxjs": "^6.6.7",
+    "rxjs-compat": "^6.0.0-rc.0",
     "tslib": "^1.9.0",
-    "zone.js": "^0.8.19",
-    "rxjs-compat": "^6.0.0-rc.0"
+    "zone.js": "^0.8.19"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.13.0",
