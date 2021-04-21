@@ -1,6 +1,5 @@
-import { analyzeAndValidateNgModules } from "@angular/compiler";
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { CheckMatch } from "./check-match";
 import { HttpClient } from '@angular/common/http';
 
@@ -8,10 +7,6 @@ export interface FormData {
   emailAddress: string;
   subscriptionType: string;
 }
-
-// export interface WarningMessages {
-//   warningMessage:string;
-// }
 
 @Component({
   selector: "app-armediaform",
